@@ -1,0 +1,21 @@
+# Flutter build artifacts
+flutter-app/build/
+flutter-app/.dart_tool/
+flutter-app/.idea/
+flutter-app/.packages
+flutter-app/pubspec.lock
+flutter-app/*.apk
+flutter-app/*.so
+
+# Spring Boot build artifacts
+springboot-app/target/
+springboot-app/.idea/
+springboot-app/*.iml
+*.log
+
+# Common
+.DS_Store
+*.class
+*.jar
+*.war
+*.ear
