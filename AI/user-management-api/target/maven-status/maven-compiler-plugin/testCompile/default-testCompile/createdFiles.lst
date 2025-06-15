@@ -1,0 +1,7 @@
+com/usermanagement/api/repositories/UserRepositoryTest.class
+com/usermanagement/api/models/UserTest.class
+com/usermanagement/api/controllers/AuthControllerTest.class
+com/usermanagement/api/integration/AuthIntegrationTest.class
+com/usermanagement/api/services/JwtServiceTest.class
+com/usermanagement/api/services/UserServiceTest.class
+com/usermanagement/api/services/AuthenticationServiceTest.class

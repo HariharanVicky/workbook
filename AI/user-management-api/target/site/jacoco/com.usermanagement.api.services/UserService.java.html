@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">user-management-api</a> &gt; <a href="index.source.html" class="el_package">com.usermanagement.api.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.usermanagement.api.services;
+
+import com.usermanagement.api.exceptions.EmailAlreadyExistsException;
+import com.usermanagement.api.exceptions.UserNotFoundException;
+import com.usermanagement.api.models.User;
+import com.usermanagement.api.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+<span class="fc" id="L13">@RequiredArgsConstructor</span>
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public User registerUser(User user) {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (userRepository.existsByEmail(user.getEmail())) {</span>
+<span class="fc" id="L22">            throw new EmailAlreadyExistsException(&quot;Email already exists: &quot; + user.getEmail());</span>
+        }
+<span class="fc" id="L24">        user.setPassword(passwordEncoder.encode(user.getPassword()));</span>
+<span class="fc" id="L25">        return userRepository.save(user);</span>
+    }
+
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+<span class="fc" id="L30">        return userRepository.findByEmail(email)</span>
+<span class="fc" id="L31">                .orElseThrow(() -&gt; new UserNotFoundException(&quot;User not found with email: &quot; + email));</span>
+    }
+
+    @Transactional
+    public User updateUser(Long id, User userDetails) {
+<span class="fc" id="L36">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L37">                .orElseThrow(() -&gt; new UserNotFoundException(&quot;User not found with id: &quot; + id));</span>
+
+<span class="fc" id="L39">        user.setFirstName(userDetails.getFirstName());</span>
+<span class="fc" id="L40">        user.setLastName(userDetails.getLastName());</span>
+<span class="pc bpc" id="L41" title="2 of 4 branches missed.">        if (userDetails.getPassword() != null &amp;&amp; !userDetails.getPassword().isEmpty()) {</span>
+<span class="fc" id="L42">            user.setPassword(passwordEncoder.encode(userDetails.getPassword()));</span>
+        }
+
+<span class="fc" id="L45">        return userRepository.save(user);</span>
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+<span class="fc" id="L50">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L51">                .orElseThrow(() -&gt; new UserNotFoundException(&quot;User not found with id: &quot; + id));</span>
+<span class="fc" id="L52">        userRepository.delete(user);</span>
+<span class="fc" id="L53">    }</span>
+} 
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        Custom ruleset for User Management API
+    </description>
+
+    <!-- Best Practices -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/>
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+    </rule>
+
+    <!-- Code Style -->
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="ShortVariable"/>
+    </rule>
+
+    <!-- Design -->
+    <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>
+        <exclude name="UseUtilityClass"/>
+    </rule>
+
+    <!-- Documentation -->
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentRequired"/>
+        <exclude name="UncommentedEmptyMethodBody"/>
+    </rule>
+
+    <!-- Error Prone -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="DataflowAnomalyAnalysis"/>
+    </rule>
+
+    <!-- Multithreading -->
+    <rule ref="category/java/multithreading.xml">
+        <exclude name="DoNotUseThreads"/>
+    </rule>
+
+    <!-- Performance -->
+    <rule ref="category/java/performance.xml">
+        <exclude name="ConsecutiveAppendsShouldReuse"/>
+        <exclude name="UseStringBufferForStringAppends"/>
+    </rule>
+
+    <!-- Security -->
+    <rule ref="category/java/security.xml">
+        <exclude name="HardCodedCryptoKey"/>
+    </rule>
+
+    <!-- Custom Rules -->
+    <rule name="AvoidHardCodedCredentials"
+          language="java"
+          message="Avoid hard-coded credentials"
+          class="net.sourceforge.pmd.lang.java.rule.codestyle.AvoidHardCodedCredentialsRule">
+        <description>
+            Avoid hard-coding credentials in the source code.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="credentialWords" value="password,secret,key,token"/>
+        </properties>
+    </rule>
+
+    <rule name="AvoidDuplicateLiterals"
+          language="java"
+          message="Avoid duplicate string literals"
+          class="net.sourceforge.pmd.lang.java.rule.errorprone.AvoidDuplicateLiteralsRule">
+        <description>
+            Code containing duplicate String literals can usually be improved by declaring the String as a constant field.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="maxDuplicateLiterals" value="3"/>
+            <property name="minimumLength" value="3"/>
+            <property name="skipAnnotations" value="true"/>
+        </properties>
+    </rule>
+
+    <rule name="UseConcurrentHashMap"
+          language="java"
+          message="Use ConcurrentHashMap instead of HashMap for thread safety"
+          class="net.sourceforge.pmd.lang.java.rule.multithreading.UseConcurrentHashMapRule">
+        <description>
+            Use ConcurrentHashMap instead of HashMap when the map is accessed by multiple threads.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseTryWithResources"
+          language="java"
+          message="Use try-with-resources statement"
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UseTryWithResourcesRule">
+        <description>
+            Use try-with-resources statement for automatic resource management.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseStringBuilderForStringAppends"
+          language="java"
+          message="Use StringBuilder for string concatenation in loops"
+          class="net.sourceforge.pmd.lang.java.rule.performance.UseStringBuilderForStringAppendsRule">
+        <description>
+            Use StringBuilder instead of String concatenation in loops.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseVarargs"
+          language="java"
+          message="Use varargs for methods with variable number of arguments"
+          class="net.sourceforge.pmd.lang.java.rule.codestyle.UseVarargsRule">
+        <description>
+            Use varargs for methods that take a variable number of arguments.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseEnumInsteadOfConstants"
+          language="java"
+          message="Use enum instead of constants"
+          class="net.sourceforge.pmd.lang.java.rule.codestyle.UseEnumInsteadOfConstantsRule">
+        <description>
+            Use enum instead of constants for better type safety and maintainability.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseOptionalInsteadOfNull"
+          language="java"
+          message="Use Optional instead of null"
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UseOptionalInsteadOfNullRule">
+        <description>
+            Use Optional instead of null for better null safety.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseStreamApi"
+          language="java"
+          message="Use Stream API instead of loops"
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UseStreamApiRule">
+        <description>
+            Use Stream API instead of traditional loops for better readability and maintainability.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+    <rule name="UseLambdaExpressions"
+          language="java"
+          message="Use lambda expressions instead of anonymous classes"
+          class="net.sourceforge.pmd.lang.java.rule.bestpractices.UseLambdaExpressionsRule">
+        <description>
+            Use lambda expressions instead of anonymous classes for better readability.
+        </description>
+        <priority>3</priority>
+    </rule>
+
+</ruleset> 
