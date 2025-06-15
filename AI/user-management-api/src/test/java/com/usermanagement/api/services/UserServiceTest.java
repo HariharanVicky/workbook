@@ -142,4 +142,32 @@ class UserServiceTest {
                 .isInstanceOf(UserNotFoundException.class)
                 .hasMessageContaining("User not found");
     }
+
+    @Test
+    void whenUpdateUserWithNullPassword_thenPasswordNotChanged() {
+        testUser.setPassword(null);
+        when(userRepository.findById(testUser.getId())).thenReturn(Optional.of(testUser));
+        when(userRepository.save(any(User.class))).thenReturn(testUser);
+        User userDetails = new User();
+        userDetails.setFirstName("Jane");
+        userDetails.setLastName("Smith");
+        userDetails.setPassword(null);
+        User updatedUser = userService.updateUser(testUser.getId(), userDetails);
+        assertThat(updatedUser.getPassword()).isNull();
+        verify(userRepository).save(any(User.class));
+    }
+
+    @Test
+    void whenUpdateUserWithEmptyPassword_thenPasswordNotChanged() {
+        testUser.setPassword("password123");
+        when(userRepository.findById(testUser.getId())).thenReturn(Optional.of(testUser));
+        when(userRepository.save(any(User.class))).thenReturn(testUser);
+        User userDetails = new User();
+        userDetails.setFirstName("Jane");
+        userDetails.setLastName("Smith");
+        userDetails.setPassword("");
+        User updatedUser = userService.updateUser(testUser.getId(), userDetails);
+        assertThat(updatedUser.getPassword()).isEqualTo("password123");
+        verify(userRepository).save(any(User.class));
+    }
 } 

@@ -38,7 +38,7 @@ public class UserService {
 
 <span class="fc" id="L39">        user.setFirstName(userDetails.getFirstName());</span>
 <span class="fc" id="L40">        user.setLastName(userDetails.getLastName());</span>
-<span class="pc bpc" id="L41" title="2 of 4 branches missed.">        if (userDetails.getPassword() != null &amp;&amp; !userDetails.getPassword().isEmpty()) {</span>
+<span class="fc bfc" id="L41" title="All 4 branches covered.">        if (userDetails.getPassword() != null &amp;&amp; !userDetails.getPassword().isEmpty()) {</span>
 <span class="fc" id="L42">            user.setPassword(passwordEncoder.encode(userDetails.getPassword()));</span>
         }
 

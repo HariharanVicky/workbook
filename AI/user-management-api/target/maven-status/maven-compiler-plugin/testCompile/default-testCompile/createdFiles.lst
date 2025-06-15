@@ -1,7 +1,12 @@
-com/usermanagement/api/repositories/UserRepositoryTest.class
-com/usermanagement/api/models/UserTest.class
+com/usermanagement/api/controllers/UserControllerTest.class
 com/usermanagement/api/controllers/AuthControllerTest.class
+com/usermanagement/api/exceptions/ExceptionTest.class
 com/usermanagement/api/integration/AuthIntegrationTest.class
+com/usermanagement/api/security/SecurityTest.class
+com/usermanagement/api/services/AuthenticationServiceTest.class
+com/usermanagement/api/repositories/UserRepositoryTest.class
+com/usermanagement/api/dto/DtoTest.class
+com/usermanagement/api/models/UserTest.class
+com/usermanagement/api/models/UserModelTest.class
 com/usermanagement/api/services/JwtServiceTest.class
 com/usermanagement/api/services/UserServiceTest.class
-com/usermanagement/api/services/AuthenticationServiceTest.class

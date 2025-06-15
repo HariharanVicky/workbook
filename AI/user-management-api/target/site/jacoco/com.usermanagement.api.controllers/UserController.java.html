@@ -17,26 +17,26 @@ public class UserController {
 
     @GetMapping(&quot;/me&quot;)
     public ResponseEntity&lt;User&gt; getCurrentUser(@RequestParam String email) {
-<span class="nc" id="L20">        return ResponseEntity.ok(userService.findByEmail(email));</span>
+<span class="fc" id="L20">        return ResponseEntity.ok(userService.findByEmail(email));</span>
     }
 
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;User&gt; updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UserRegistrationRequest request) {
-<span class="nc" id="L27">        User user = new User();</span>
-<span class="nc" id="L28">        user.setEmail(request.getEmail());</span>
-<span class="nc" id="L29">        user.setPassword(request.getPassword());</span>
-<span class="nc" id="L30">        user.setFirstName(request.getFirstName());</span>
-<span class="nc" id="L31">        user.setLastName(request.getLastName());</span>
+<span class="fc" id="L27">        User user = new User();</span>
+<span class="fc" id="L28">        user.setEmail(request.getEmail());</span>
+<span class="fc" id="L29">        user.setPassword(request.getPassword());</span>
+<span class="fc" id="L30">        user.setFirstName(request.getFirstName());</span>
+<span class="fc" id="L31">        user.setLastName(request.getLastName());</span>
 
-<span class="nc" id="L33">        return ResponseEntity.ok(userService.updateUser(id, user));</span>
+<span class="fc" id="L33">        return ResponseEntity.ok(userService.updateUser(id, user));</span>
     }
 
     @DeleteMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteUser(@PathVariable Long id) {
-<span class="nc" id="L38">        userService.deleteUser(id);</span>
-<span class="nc" id="L39">        return ResponseEntity.ok().build();</span>
+<span class="fc" id="L38">        userService.deleteUser(id);</span>
+<span class="fc" id="L39">        return ResponseEntity.ok().build();</span>
     }
 } 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

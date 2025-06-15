@@ -42,7 +42,45 @@ class AuthControllerTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").exists())
-                .andExpect(jsonPath("$.email").value("test2@example.com"));
+                .andExpect(jsonPath("$.email").value("test2@example.com"))
+                .andExpect(jsonPath("$.firstName").value("John"))
+                .andExpect(jsonPath("$.lastName").value("Doe"));
+    }
+
+    @Test
+    void whenRegisterWithInvalidData_thenReturnBadRequest() throws Exception {
+        UserRegistrationRequest request = new UserRegistrationRequest(
+                "invalid-email",
+                "short",
+                "",
+                ""
+        );
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void whenRegisterWithExistingEmail_thenReturnConflict() throws Exception {
+        // First registration
+        UserRegistrationRequest request = new UserRegistrationRequest(
+                "duplicate@example.com",
+                "password123",
+                "John",
+                "Doe"
+        );
+        mockMvc.perform(post("/api/auth/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk());
+
+        // Try to register again with same email
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isConflict());
     }
 
     @Test
@@ -69,6 +107,32 @@ class AuthControllerTest {
                         .content(objectMapper.writeValueAsString(loginRequest)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").exists())
-                .andExpect(jsonPath("$.email").value("test3@example.com"));
+                .andExpect(jsonPath("$.email").value("test3@example.com"))
+                .andExpect(jsonPath("$.firstName").value("John"))
+                .andExpect(jsonPath("$.lastName").value("Doe"));
+    }
+
+    @Test
+    void whenLoginWithInvalidCredentials_thenReturnForbidden() throws Exception {
+        AuthenticationRequest loginRequest = new AuthenticationRequest(
+                "nonexistent@example.com",
+                "wrongpassword"
+        );
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginRequest)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void whenLoginWithInvalidData_thenReturnBadRequest() throws Exception {
+        AuthenticationRequest loginRequest = new AuthenticationRequest(
+                "invalid-email",
+                "short"
+        );
+        mockMvc.perform(post("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginRequest)))
+                .andExpect(status().isBadRequest());
     }
 } 

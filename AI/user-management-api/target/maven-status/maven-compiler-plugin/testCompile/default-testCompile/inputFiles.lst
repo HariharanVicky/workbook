@@ -1,9 +1,13 @@
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/services/JwtServiceTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/services/AuthenticationServiceTest.java
+/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/security/SecurityTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/integration/UserIntegrationTest.java
-/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/controllers/AuthControllerTest.java
+/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/models/UserModelTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/repositories/UserRepositoryTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/services/UserServiceTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/integration/AuthIntegrationTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/controllers/UserControllerTest.java
 /Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/models/UserTest.java
+/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/controllers/AuthControllerTest.java
+/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/dto/DtoTest.java
+/Users/hariharan_cursor/Documents/AI/workbook/AI/user-management-api/src/test/java/com/usermanagement/api/exceptions/ExceptionTest.java
