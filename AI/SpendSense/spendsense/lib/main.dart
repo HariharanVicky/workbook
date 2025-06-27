@@ -9,6 +9,7 @@ import 'screens/home_screen.dart';
 import 'screens/expense_list_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/categories_screen.dart';
+import 'screens/pin_entry_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +65,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
             themeMode: settingsProvider.themeMode,
-            home: const MainScreen(),
+            home: settingsProvider.shouldShowPinScreen() 
+                ? const PinEntryScreen() 
+                : const MainScreen(),
           );
         },
       ),
@@ -79,14 +82,59 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   int _selectedIndex = 0;
+  bool _isAppPaused = false;
 
   final List<Widget> _screens = [
     const HomeScreen(),
     const ExpenseListScreen(),
     const SettingsScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    
+    switch (state) {
+      case AppLifecycleState.paused:
+        _isAppPaused = true;
+        // Clear unlock time when app is paused for maximum security
+        context.read<SettingsProvider>().clearUnlockTime();
+        break;
+      case AppLifecycleState.resumed:
+        if (_isAppPaused) {
+          _checkPinOnResume();
+        }
+        _isAppPaused = false;
+        break;
+      default:
+        break;
+    }
+  }
+
+  void _checkPinOnResume() {
+    final settingsProvider = context.read<SettingsProvider>();
+    if (settingsProvider.shouldRequirePinOnResume()) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const PinEntryScreen(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

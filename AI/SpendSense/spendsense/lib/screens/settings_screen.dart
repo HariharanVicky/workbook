@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/settings_provider.dart';
 import '../providers/category_provider.dart';
 import 'categories_screen.dart';
+import 'pin_setup_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,6 +16,8 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Consumer<SettingsProvider>(
         builder: (context, settingsProvider, child) {
+          final hasPin = settingsProvider.isPinSet();
+          final pinEnabled = settingsProvider.pinEnabled;
           return ListView(
             children: [
               // Theme Settings
@@ -51,6 +54,47 @@ class SettingsScreen extends StatelessWidget {
                       child: Text('Dark'),
                     ),
                   ],
+                ),
+              ),
+              const Divider(),
+
+              // Security Settings
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Security',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: ListTile(
+                  leading: Icon(
+                    pinEnabled ? Icons.lock : Icons.lock_open,
+                    color: pinEnabled ? Colors.green : Colors.grey,
+                  ),
+                  title: Text(
+                    hasPin ? (pinEnabled ? 'PIN is enabled' : 'PIN is set but not enabled') : 'No PIN is set',
+                  ),
+                  subtitle: Text(
+                    hasPin
+                        ? 'You can change or remove your PIN.'
+                        : 'Set a 4-digit PIN to secure your app.'
+                  ),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PinSetupScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(hasPin ? 'Change PIN' : 'Set PIN'),
+                  ),
                 ),
               ),
               const Divider(),
